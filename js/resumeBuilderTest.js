@@ -1,3 +1,9 @@
+var formattedName = HTMLheaderName.replace("%data%", "Roberto Castillo");
+var role = "Web Developer";
+var formattedRole = HTMLheaderRole.replace("%data%", role);
+$("#header").prepend(formattedRole);
+$("#header").prepend(formattedName);
+
 var work = {
 	"jobs" : [
 		{
@@ -35,6 +41,7 @@ var bio = {
 	},
 	"welcomeMessage" : "lorem ipsum dolor sit amet etc etc etc.",
 	"skills" : ["Project Management", "Customer Service", "HTML", "CSS", "Javascript", "Computer Hardware"],
+	"bioPic" : "/images/contact.jpg"
 }
 
 var education = {
@@ -59,4 +66,31 @@ var education = {
 		"graduationYear" : 2014
 	}
 	]
+}
+
+if (bio.skills.length > 0) {
+	$("#header").append(HTMLskillsStart);
+	
+	var formattedSkill = HTMLskills.replace("%data%", bio.skills[0]);
+	$("#skills").append(formattedSkill);
+	formattedSkill = HTMLskills.replace("%data%", bio.skills[1]);
+	$("#skills").append(formattedSkill);
+	formattedSkill = HTMLskills.replace("%data%", bio.skills[2]);
+	$("#skills").append(formattedSkill);
+	formattedSkill = HTMLskills.replace("%data%", bio.skills[3]);
+	$("#skills").append(formattedSkill);
+	formattedSkill = HTMLskills.replace("%data%", bio.skills[4]);
+	$("#skills").append(formattedSkill);
+	formattedSkill = HTMLskills.replace("%data%", bio.skills[5]);
+	$("#skills").append(formattedSkill);
+}
+	
+for (job in work.jobs){
+	$("#workExperience").append(HTMLworkStart);
+	
+	var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+	var formattedTitle = HTMLworkTitle.replace("%data%", work.job[job].title);
+	var formattedEmployerTitle = formattedEmployer + formattedTitle;
+	
+	$(".work-entry:last").append(formattedEmployerTitle);
 }
