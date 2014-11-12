@@ -4,6 +4,7 @@ var formattedRole = HTMLheaderRole.replace("%data%", role);
 $("#header").prepend(formattedRole);
 $("#header").prepend(formattedName);
 
+
 var work = {
 	"jobs" : [
 		{
@@ -22,49 +23,58 @@ var work = {
 		}
 	]
 }
-
+	
 var projects = {
-	"projects" : {
+	"projects" : [
+	{
 		"title" : "AT&T Business Community",
 		"dates" : "March 2011 - Present",
 		"description" : "The AT&T Business Community is a public forum where professionals can ask questions to other members or Community staff about any AT&T products or services",
-		"images" : "/images/bizcommunity.png"
+		"images" : ["images/bizcommunity.png"]
 	}
+	]
 }
 
 var bio = {
 	"name" : "Roberto Castillo",
 	"role" : "Web Developer",
-	"contacts" : {
+	"contacts" : [
+		{
 		"mobile" : "973-420-4278",
+		"location" : "Clifton, NJ, US",
 		"email" : "rcastillo1031@gmail.com",
 		"github" : "RobertoCastillo"
-	},
-	"welcomeMessage" : "lorem ipsum dolor sit amet etc etc etc.",
+		}
+	],
+	"welcomeMessage" : "Hello Everyone! Here is just a little more info about me.",
 	"skills" : ["Project Management", "Customer Service", "HTML", "CSS", "Javascript", "Computer Hardware"],
-	"bioPic" : "/images/contact.JPG"
+	"bioPic" : ["/images/contact.JPG"]
 }
 
 var education = {
-	"schools" : {
+	"schools" : [
+		{
 		"name" : "Dover Business College",
-		"city" : "Paramus, NJ, US",
+		"location" : "Paramus, NJ, US",
 		"degree" : "Certificate",
 		"major" : "Networking",
-		"graduationYear" : 2002
-	},
+		"dates" : 2002
+		}
+	],
 	"onlineCourses" : [
 	{
-		"name" : "ONLC Training Centers",
+		"title" : "Web Design",
+		"school" : "ONLC Training Centers",
 		"degree" : "Certificate",
-		"major" : "Web Design",
-		"graduationYear" : 2014
+		"dates" : 2014,
+		"url" : "www.onlc.com/"
 	},
 	{
+		"title" : "Front-End Web Developer",
 		"name" : "Udacity",
 		"degree" : "Nanodegree",
-		"major" : "Front-End Web Developer",
-		"graduationYear" : 2014
+		"dates" : 2014,
+		"url" : "https://www.udacity.com/course/nd001"
 	}
 	]
 }
@@ -88,8 +98,8 @@ if (bio.skills.length > 0) {
 }
 
 //function to display work experience
-function displayWork() {
-for (job in work.jobs) {
+work.display = function() {
+	for (job in work.jobs) {
 	$("#workExperience").append(HTMLworkStart);
 	
 	var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
@@ -98,6 +108,9 @@ for (job in work.jobs) {
 	
 	$(".work-entry:last").append(formattedEmployerTitle);
 	
+	var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
+	$(".work-entry:last").append(formattedLocation);
+	
 	var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
 	$(".work-entry:last").append(formattedDates);
 	
@@ -105,7 +118,62 @@ for (job in work.jobs) {
 	$(".work-entry:last").append(formattedDescription);
 	}
 }
-displayWork();
+work.display();
+
+//coding for projects
+projects.display = function() {
+	for (project in projects.projects) {
+		$("#projects").append(HTMLprojectStart);
+	
+		var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
+		$(".project-entry:last").append(formattedTitle);
+		
+		var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
+		$(".project-entry:last").append(formattedDates);
+		
+		var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
+		$(".project-entry:last").append(formattedDescription);
+		
+		if (projects.projects[project].images.length > 0) {
+			for (image in projects.projects[project].images) {
+				var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
+				$(".project-entry:last").append(formattedImage);
+			}
+		}
+	}
+}	
+projects.display();
+
+//function to display education
+education.display = function() {
+	for (school in education.schools) {
+	$("#education").append(HTMLschoolStart);
+	
+	var formattedName = HTMLschoolName.replace("%data%", education.schools[school].name);
+	var formattedDegree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
+	var formattedNameDegree = formattedName + formattedDegree;
+	$(".education-entry:last").append(formattedNameDegree);
+		
+	var formattedLocation = HTMLschoolLocation.replace("%data%", education.schools[school].location);
+	$(".education-entry:last").append(formattedLocation);
+		
+	var formattedDates = HTMLschoolDates.replace("%data%", education.schools[school].dates);
+	$(".education-entry:last").append(formattedDates);
+	
+	var formattedMajor = HTMLschoolMajor.replace("%data%", education.schools[school].major);
+	$(".education-entry:last").append(formattedMajor);
+	}
+	
+	for (onlineCourse in education.onlineCourses) {
+		$("#education").append(HTMLonlineClasses);
+
+		var formattedTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[onlineCourse].title);
+		var formattedSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[onlineCourse].school);
+		var formattedTitleSchool = formattedTitle + formattedSchool;
+		$(".education-entry:last").append(formattedTitleSchool);
+	}
+}
+education.display();
 
 //function for clicks locations
 $(document).click(function(loc) {
@@ -127,26 +195,6 @@ function inName(name) {
 
 $("#main").append(internationalizeButton);
 
+//coding for map
+$("#mapDiv").append(googleMap);
 
-projects.display = function() {
-	for (project in projects.projects) {
-	$("#projects").append(HTMLprojectStart);
-	
-	var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
-	$(".project-entry:last").append(formattedTitle);
-	
-	var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
-	$(".project-entry:last").append(formattedDates);
-	
-	var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
-	$(".project-entry:last").append(formattedDescription);
-	
-	if (projects.projects[project].images.length > 0) {
-		for (image in projects.projects[project].images) {
-			var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
-			$(".project-entry:last").append(formattedImage);
-		}
-	}
-	}
-}
-projects.display();
