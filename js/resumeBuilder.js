@@ -127,7 +127,7 @@ function inName(name) {
 
 $("#main").append(internationalizeButton);
 
-//coding for projects
+
 projects.display = function() {
 	for (project in projects.projects) {
 	$("#projects").append(HTMLprojectStart);
@@ -143,9 +143,10 @@ projects.display = function() {
 	
 	if (projects.projects[project].images.length > 0) {
 		for (image in projects.projects[project].images) {
-			var formattedImage = HTMLprojectImage.replace('%data%', projects.projects[project].images[image]);
+			var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
 			$(".project-entry:last").append(formattedImage);
-			}
 		}
 	}
+	}
 }
+projects.display();
