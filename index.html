@@ -16,6 +16,7 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
 -->
 <head>
   <link href="css/style.css" rel="stylesheet" type="text/css"></link>
+  <link href='http://fonts.googleapis.com/css?family=Philosopher' rel='stylesheet' type='text/css'>
 
   <!--
   jQuery is a common JavaScript library for reading and making changes to the
@@ -39,13 +40,13 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
   Uncomment the <script> tag below when you're ready to add an interactive
   Google Map to your resume!
   -->
-  <!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
 
   <meta name="viewport" content="width=device-width">
 </head>
 <body unresolved>
   <div id="main">
-    <div id="header" class="center-content">
+     <div id="header" class="center-content">
       <ul id="topContacts" class='flex-box'></ul>
     </div>
     <div style='clear: both;'></div>
@@ -57,9 +58,6 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
     </div>
     <div id="education" class='gray'>
       <h2>Education</h2>
-    </div>
-    <div id="skillsChart">
-      <h2>Skills Chart</h2>
     </div>
     <div id="mapDiv">
       <h2>Where I've Lived and Worked</h2>
@@ -123,7 +121,7 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
   if(document.getElementsByClassName("flex-item").length === 0) {
     document.getElementById("letsConnect").style.backgroundColor = "#000000";
   }
-  if(document.getElementById("map") == undefined) {
+  if(document.getElementById("map").length === 0) {
     document.getElementById("mapDiv").style.backgroundColor = "#000000";
   }
   </script>
